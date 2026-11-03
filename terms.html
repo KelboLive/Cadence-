@@ -1,0 +1,288 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Cadence Terms of Service</title>
+<link rel="icon" type="image/png" href="favicon.png">
+<meta name="description" content="Cadence is a desktop app that validates, uploads and schedules TikTok videos at their original quality using TikTok's official API.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Anybody:wdth,wght@75..125,500..800&family=IBM+Plex+Sans:ital,wght@0,400;0,500;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: a broadcast-timeline motif — the hero is a day's posting timeline; legal pages are a
+   readable column with a sticky contents rail. Views are routed by #privacy / #terms. */
+:root {
+  --bg: #F3F4F7;
+  --surface: #FFFFFF;
+  --ink: #12131A;
+  --muted: #4E5466;
+  --line: #D6D9E2;
+  --accent: #2B3FD6;
+  --on-accent: #FFFFFF;
+  --signal: #9A5A00;
+  --ok: #18744A;
+  --bad: #B3202E;
+  --fill-bg: #FFF1D6;
+  --fill-ink: #6B3F00;
+  --display: "Anybody", "Arial Narrow", "Helvetica Neue", Arial, sans-serif;
+  --body: "IBM Plex Sans", "Segoe UI", system-ui, -apple-system, sans-serif;
+  --mono: "IBM Plex Mono", ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+  --measure: 66ch;
+  --gutter: max(16px, env(safe-area-inset-left, 0px));
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #0C0E15; --surface: #151824; --ink: #ECEEF5; --muted: #A4AABB; --line: #2C3142;
+    --accent: #8E9CFF; --on-accent: #0C0E15; --signal: #F2B45A; --ok: #5FD99A; --bad: #FF8F98;
+    --fill-bg: #3A2A0E; --fill-ink: #FFD48A; color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #0C0E15; --surface: #151824; --ink: #ECEEF5; --muted: #A4AABB; --line: #2C3142;
+  --accent: #8E9CFF; --on-accent: #0C0E15; --signal: #F2B45A; --ok: #5FD99A; --bad: #FF8F98;
+  --fill-bg: #3A2A0E; --fill-ink: #FFD48A; color-scheme: dark;
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+body { background: var(--bg); color: var(--ink); font: 400 16px/1.6 var(--body); }
+a { color: var(--accent); text-underline-offset: 3px; }
+a:focus-visible, button:focus-visible { outline: 3px solid var(--accent); outline-offset: 3px; border-radius: 4px; }
+h1, h2, h3 { font-family: var(--display); text-wrap: balance; line-height: 1.05; margin: 0; }
+p { margin: 0; }
+code, .mono { font-family: var(--mono); font-size: .9em; }
+.wrap { max-width: 1120px; margin: 0 auto; padding-left: var(--gutter); padding-right: max(16px, env(safe-area-inset-right, 0px)); }
+.fill { background: var(--fill-bg); color: var(--fill-ink); padding: 0 .3em; border-radius: 3px; font-weight: 500; }
+.eyebrow { font: 500 12px/1 var(--mono); letter-spacing: .12em; text-transform: uppercase; color: var(--muted); }
+
+/* header */
+body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-area-inset-top, 0px); z-index: 10; background: var(--bg); }
+.top { position: sticky; top: env(safe-area-inset-top, 0px); z-index: 5; background: var(--bg); border-bottom: 1px solid var(--line); }
+.top .wrap { display: flex; align-items: center; justify-content: space-between; gap: 16px; padding-block: 14px; flex-wrap: wrap; }
+.brand { display: flex; align-items: center; gap: 10px; font: 800 20px/1 var(--display); font-stretch: 115%; color: var(--ink); text-decoration: none; }
+.brand-mark { width: 26px; height: 26px; display: grid; grid-template-columns: repeat(3, 1fr); gap: 2px; align-items: end; }
+.brand-mark i { display: block; background: var(--accent); border-radius: 1px; }
+.brand-mark i:nth-child(1) { height: 40%; } .brand-mark i:nth-child(2) { height: 100%; } .brand-mark i:nth-child(3) { height: 65%; }
+nav { display: flex; gap: 4px; flex-wrap: wrap; }
+nav a { color: var(--muted); text-decoration: none; font-weight: 500; padding: 6px 12px; border-radius: 999px; }
+nav a:hover { color: var(--ink); }
+nav a[aria-current="page"] { color: var(--ink); background: var(--surface); box-shadow: inset 0 0 0 1px var(--line); }
+
+/* hero */
+.hero { padding-block: 64px 40px; display: grid; grid-template-columns: minmax(0, 1.05fr) minmax(0, 1fr); gap: 48px; align-items: center; }
+.hero h1 { font-size: clamp(44px, 7vw, 84px); font-weight: 800; font-stretch: 78%; letter-spacing: -.01em; text-transform: uppercase; }
+.hero h1 em { font-style: normal; color: var(--accent); font-stretch: 125%; }
+.lede { margin-top: 20px; font-size: 19px; color: var(--muted); max-width: 46ch; }
+.ctas { margin-top: 28px; display: flex; gap: 12px; flex-wrap: wrap; }
+.btn { display: inline-flex; align-items: center; gap: 8px; padding: 12px 20px; border-radius: 10px; font-weight: 600; text-decoration: none; border: 1px solid var(--line); color: var(--ink); background: var(--surface); }
+.btn.primary { background: var(--accent); border-color: var(--accent); color: var(--on-accent); }
+.specline { margin-top: 28px; display: flex; gap: 18px; flex-wrap: wrap; font: 500 13px/1 var(--mono); color: var(--muted); }
+.specline b { color: var(--ink); font-weight: 500; }
+
+/* timeline card */
+.deck { background: var(--surface); border: 1px solid var(--line); border-radius: 16px; padding: 20px; min-width: 0; }
+.deck-head { display: flex; justify-content: space-between; align-items: baseline; gap: 12px; flex-wrap: wrap; }
+.deck-head h3 { font-size: 18px; font-stretch: 100%; }
+.ruler { position: relative; margin: 18px 0 8px; height: 34px; border-bottom: 1px solid var(--line);
+  background: repeating-linear-gradient(90deg, var(--line) 0 1px, transparent 1px calc(100% / 24)); background-size: 100% 10px; background-repeat: no-repeat; background-position: bottom; }
+.ruler span { position: absolute; bottom: 14px; font: 500 11px/1 var(--mono); color: var(--muted); transform: translateX(-50%); }
+.ruler .now { position: absolute; top: 0; bottom: -6px; width: 2px; background: var(--signal); left: 37.5%; }
+.ruler .now::after { content: "NOW 09:00"; position: absolute; top: -2px; left: 6px; font: 500 10px/1 var(--mono); color: var(--signal); white-space: nowrap; }
+.slots { list-style: none; margin: 14px 0 0; padding: 0; display: grid; gap: 8px; }
+.slot { display: grid; grid-template-columns: 64px minmax(0, 1fr) auto; gap: 12px; align-items: center; padding: 10px 12px; border: 1px solid var(--line); border-radius: 10px; }
+.slot time { font: 500 13px/1 var(--mono); font-variant-numeric: tabular-nums; }
+.slot .t { min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.slot small { display: block; color: var(--muted); font: 400 12px/1.4 var(--mono); }
+.chip { font: 600 12px/1 var(--body); padding: 5px 10px; border-radius: 999px; border: 1px solid currentColor; white-space: nowrap; }
+.chip.ok { color: var(--ok); } .chip.run { color: var(--signal); } .chip.wait { color: var(--accent); } .chip.bad { color: var(--bad); }
+
+/* sections */
+section.band { padding-block: 64px; border-top: 1px solid var(--line); }
+.band h2 { font-size: clamp(30px, 4vw, 44px); font-weight: 750; font-stretch: 85%; text-transform: uppercase; }
+.band .intro { margin-top: 12px; color: var(--muted); max-width: var(--measure); font-size: 17px; }
+.grid3 { margin-top: 36px; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 28px; }
+.feat h3 { font-size: 22px; font-stretch: 100%; font-weight: 700; margin-top: 12px; }
+.feat p { margin-top: 8px; color: var(--muted); }
+.feat .k { font: 500 12px/1 var(--mono); color: var(--accent); letter-spacing: .08em; text-transform: uppercase; }
+
+.report { margin-top: 36px; display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 40px; align-items: start; }
+.report table { width: 100%; border-collapse: collapse; font-size: 15px; }
+.report th, .report td { text-align: left; padding: 10px 8px; border-bottom: 1px solid var(--line); vertical-align: top; }
+.report th { font: 500 12px/1 var(--mono); color: var(--muted); letter-spacing: .08em; text-transform: uppercase; }
+.report td.v { font-family: var(--mono); font-variant-numeric: tabular-nums; }
+.tbl { overflow-x: auto; background: var(--surface); border: 1px solid var(--line); border-radius: 14px; padding: 8px 12px; }
+.steps { display: grid; gap: 18px; }
+.steps p { color: var(--muted); }
+.steps strong { color: var(--ink); display: block; font-size: 17px; }
+
+.limits { margin-top: 32px; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; }
+.limit { background: var(--surface); border: 1px solid var(--line); border-radius: 14px; padding: 20px; }
+.limit h3 { font-size: 19px; font-stretch: 100%; font-weight: 700; }
+.limit p { margin-top: 8px; color: var(--muted); }
+
+pre.cmd { margin-top: 24px; background: var(--surface); border: 1px solid var(--line); border-radius: 12px; padding: 18px; overflow-x: auto; font: 400 14px/1.7 var(--mono); }
+pre.cmd .c { color: var(--muted); }
+
+footer { border-top: 1px solid var(--line); padding-block: 32px 48px; color: var(--muted); font-size: 14px; }
+footer .wrap { display: flex; justify-content: space-between; gap: 24px; flex-wrap: wrap; }
+footer p { max-width: 60ch; }
+footer nav a { padding: 0 12px 0 0; }
+
+/* legal */
+.legal { padding-block: 48px 72px; display: grid; grid-template-columns: 220px minmax(0, 1fr); gap: 56px; align-items: start; }
+.legal aside { position: sticky; top: calc(env(safe-area-inset-top, 0px) + 84px); }
+.legal aside ol { list-style: none; padding: 0; margin: 12px 0 0; display: grid; gap: 2px; counter-reset: toc; }
+.legal aside button { all: unset; cursor: pointer; display: block; padding: 5px 0; color: var(--muted); font-size: 14px; line-height: 1.35; }
+.legal aside button:hover { color: var(--ink); }
+.legal aside button:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+.doc { max-width: var(--measure); min-width: 0; }
+.doc h1 { font-size: clamp(36px, 5vw, 56px); font-weight: 800; font-stretch: 80%; text-transform: uppercase; }
+.doc .meta { margin-top: 14px; font: 400 13px/1.6 var(--mono); color: var(--muted); }
+.doc .summary { margin-top: 28px; padding: 20px 22px; background: var(--surface); border: 1px solid var(--line); border-radius: 14px; }
+.doc .summary h2 { font-size: 15px; font-family: var(--body); font-weight: 600; text-transform: none; margin: 0 0 8px; }
+.doc .summary ul { margin: 0; padding-left: 1.2em; }
+.doc h2 { font-size: 24px; font-weight: 700; font-stretch: 95%; margin-top: 44px; scroll-margin-top: 96px; }
+.doc h3 { font-size: 18px; font-family: var(--body); font-weight: 600; margin-top: 24px; }
+.doc p, .doc ul, .doc ol { margin-top: 12px; }
+.doc li { margin-top: 6px; }
+.doc .caps { text-transform: uppercase; font-size: 14px; letter-spacing: .01em; }
+.dtable { margin-top: 16px; overflow-x: auto; border: 1px solid var(--line); border-radius: 12px; }
+.dtable table { width: 100%; border-collapse: collapse; font-size: 14.5px; min-width: 560px; }
+.dtable th, .dtable td { text-align: left; padding: 10px 12px; border-bottom: 1px solid var(--line); vertical-align: top; }
+.dtable tr:last-child td { border-bottom: 0; }
+.dtable th { background: var(--surface); font-weight: 600; }
+
+@media (max-width: 880px) {
+  .hero, .report, .legal { grid-template-columns: minmax(0, 1fr); }
+  .grid3, .limits { grid-template-columns: minmax(0, 1fr); }
+  .legal aside { position: static; }
+  .hero { padding-block: 40px 24px; gap: 32px; }
+}
+@media (prefers-reduced-motion: no-preference) {
+  .ruler .now { animation: pulse 2.4s ease-in-out infinite; }
+  @keyframes pulse { 50% { opacity: .45; } }
+}
+</style>
+
+</head>
+<body>
+<header class="top">
+  <div class="wrap">
+    <a class="brand" href="index.html" aria-label="Cadence home"><span class="brand-mark" aria-hidden="true"><i></i><i></i><i></i></span>Cadence</a>
+    <nav aria-label="Site">
+      <a href="index.html" data-view="home">Product</a>
+      <a href="privacy.html" data-view="privacy">Privacy</a>
+      <a href="terms.html" data-view="terms" aria-current="page">Terms</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+<div id="view-terms" data-page="terms">
+  <div class="wrap legal">
+    <aside aria-label="Contents"><p class="eyebrow">Contents</p><ol data-toc="terms"></ol></aside>
+    <article class="doc" id="terms-doc">
+      <p class="eyebrow">Legal</p>
+      <h1 style="margin-top:12px">Terms of Service</h1>
+      <p class="meta">Effective November 3, 2026 · Last updated November 3, 2026</p>
+
+      <div class="summary">
+        <h2>The short version</h2>
+        <ul>
+          <li>Cadence is a tool that posts to your TikTok account when you tell it to.</li>
+          <li>You own your videos and are responsible for what you post.</li>
+          <li>You must also follow TikTok's rules.</li>
+          <li>Scheduled posts go out only while Cadence is running, and TikTok can limit or refuse posts.</li>
+        </ul>
+      </div>
+
+      <h2 id="t-agree">Agreement</h2>
+      <p>These Terms are an agreement between you and <span class="fill">[Developer or company name]</span> ("we", "us") about your use of the Cadence desktop application and this website (together, "Cadence"). By installing or using Cadence you agree to these Terms and to our <a href="privacy.html">Privacy Policy</a>. If you don't agree, don't use Cadence.</p>
+
+      <h2 id="t-eligible">Who can use Cadence</h2>
+      <p>You must be old enough to form a binding contract where you live and meet TikTok's own eligibility requirements. If you use Cadence for a business or for someone else's TikTok account, you confirm you are authorized to act for them, and "you" includes them.</p>
+
+      <h2 id="t-tiktok">TikTok's rules apply too</h2>
+      <p>Cadence connects to TikTok using TikTok's official developer tools. When you post through Cadence you must comply with TikTok's <a href="https://www.tiktok.com/legal/page/us/terms-of-service/en" rel="noopener">Terms of Service</a>, <a href="https://www.tiktok.com/community-guidelines" rel="noopener">Community Guidelines</a>, <a href="https://www.tiktok.com/legal/page/global/music-usage-confirmation/en" rel="noopener">Music Usage Confirmation</a> and, when you disclose promotional content, the <a href="https://www.tiktok.com/legal/page/global/bc-policy/en" rel="noopener">Branded Content Policy</a>. TikTok decides whether to accept, process, display or remove content. Cadence is not affiliated with, endorsed by or sponsored by TikTok or ByteDance, and "TikTok" is a trademark of its owner.</p>
+
+      <h2 id="t-content">Your content</h2>
+      <p>You keep all rights in the videos, captions and other material you use with Cadence. We do not receive your content, and these Terms give us no license to it. Cadence only transmits it to TikTok at your direction. You are responsible for having the rights and permissions needed to post it, including music, likenesses and trademarks, and for accurately disclosing paid partnerships and AI-generated content.</p>
+
+      <h2 id="t-license">License to use Cadence</h2>
+      <p>Subject to these Terms, we grant you a personal, non-exclusive, non-transferable, revocable license to install and use Cadence. If Cadence is distributed to you under an open-source license, that license governs your use of the source code, and these Terms govern everything else, including the website and any sign-in service we operate.</p>
+
+      <h2 id="t-acceptable">Acceptable use</h2>
+      <p>You agree not to use Cadence to:</p>
+      <ul>
+        <li>post spam, repetitive or misleading content, or content that violates TikTok's rules or the law;</li>
+        <li>post to an account you are not authorized to use;</li>
+        <li>get around TikTok's posting limits, rate limits or other technical restrictions, including by running many copies or accounts to multiply posting volume;</li>
+        <li>infringe anyone's intellectual property, privacy or publicity rights;</li>
+        <li>interfere with, reverse engineer or misuse our sign-in service, or extract the app's developer credentials.</li>
+      </ul>
+
+      <h2 id="t-scheduling">Scheduling and drafts</h2>
+      <p>TikTok's API does not provide scheduling, so Cadence sends scheduled posts from your computer at the chosen time. Cadence must be running and online at that time. Posts missed while it was closed are posted later only within the grace period you set, and otherwise marked as missed. TikTok may delay, limit, reject or remove posts, including when daily posting caps are reached or while our app is awaiting TikTok's review, when posts may be limited to private visibility. Cadence cannot read drafts saved inside the TikTok app. We do not guarantee that any post will be published at a particular time, or at all.</p>
+
+      <h2 id="t-quality">Video quality and conversions</h2>
+      <p>By default Cadence uploads your original file without re-encoding. Cadence converts a file only if you choose a conversion it offers, and writes the result to a new file while leaving your original in place. TikTok processes uploads on its own servers, and we are not responsible for how TikTok encodes or displays your video. Keep backups of your original files.</p>
+
+      <h2 id="t-availability">Changes and availability</h2>
+      <p>We may update, change or stop offering Cadence or any feature, and TikTok may change its API in ways that affect Cadence. We are not liable for any loss caused by such changes. You can stop using Cadence at any time.</p>
+
+      <h2 id="t-disclaimer">Disclaimer of warranties</h2>
+      <p class="caps">Cadence is provided "as is" and "as available". To the fullest extent permitted by law, we disclaim all warranties, express or implied, including warranties of merchantability, fitness for a particular purpose, title and non-infringement, and any warranty that Cadence will be uninterrupted, error-free or that scheduled posts will be published.</p>
+
+      <h2 id="t-liability">Limitation of liability</h2>
+      <p class="caps">To the fullest extent permitted by law, we will not be liable for any indirect, incidental, special, consequential or punitive damages, or for lost profits, revenue, followers, data or content, arising from your use of Cadence. Our total liability for any claim relating to Cadence is limited to the greater of the amount you paid us for Cadence in the 12 months before the claim, or US $50.</p>
+      <p>Some jurisdictions do not allow these exclusions or limits, so they may not fully apply to you. Nothing in these Terms limits rights you have under consumer protection laws that cannot be waived.</p>
+
+      <h2 id="t-indemnity">Indemnity</h2>
+      <p>You agree to defend and indemnify us against claims, losses and expenses (including reasonable legal fees) arising from content you post through Cadence or your breach of these Terms or TikTok's rules.</p>
+
+      <h2 id="t-termination">Ending these Terms</h2>
+      <p>You may stop using Cadence and uninstall it at any time. We may suspend or end your access to any service we operate if you breach these Terms. The sections on your content, disclaimers, limitation of liability, indemnity and governing law continue after these Terms end.</p>
+
+      <h2 id="t-law">Governing law and disputes</h2>
+      <p>These Terms are governed by the laws of <span class="fill">[State / country]</span>, without regard to conflict-of-law rules. Disputes will be resolved in the courts located in <span class="fill">[County, State / country]</span>, unless the law where you live gives you the right to bring a claim in your local courts.</p>
+
+      <h2 id="t-changes">Changes to these Terms</h2>
+      <p>We may update these Terms. We will post the new version here with a new date, and for significant changes we will also tell you in the app. Continuing to use Cadence after the change means you accept the updated Terms.</p>
+
+      <h2 id="t-contact">Contact</h2>
+      <p><span class="fill">[Developer or company name]</span><br><span class="fill">[Postal address]</span><br>Email: <span class="fill">[support contact email]</span></p>
+    </article>
+  </div>
+</div>
+</main>
+
+<footer>
+  <div class="wrap">
+    <p>Cadence is an independent app that uses TikTok's official developer APIs. It is not affiliated with, endorsed or sponsored by TikTok or ByteDance.<br>© 2026 <span class="fill">[Developer or company name]</span></p>
+    <nav aria-label="Legal"><a href="privacy.html">Privacy Policy</a><a href="terms.html">Terms of Service</a></nav>
+  </div>
+</footer>
+
+<script>
+(function () {
+  var views = ["home", "privacy", "terms"];
+  var anchors = { how: 1, quality: 1, limits: 1, get: 1 };
+
+  // Build the contents rail for each legal document from its headings.
+  document.querySelectorAll("[data-toc]").forEach(function (ol) {
+    var doc = document.getElementById(ol.dataset.toc + "-doc");
+    doc.querySelectorAll("h2[id]").forEach(function (h) {
+      var li = document.createElement("li");
+      var b = document.createElement("button");
+      b.type = "button";
+      b.textContent = h.textContent;
+      b.addEventListener("click", function () { h.scrollIntoView({ behavior: matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth" }); });
+      li.appendChild(b);
+      ol.appendChild(li);
+    });
+  });
+
+})();
+</script>
+</body>
+</html>

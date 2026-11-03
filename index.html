@@ -1,0 +1,288 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Cadence Uploader</title>
+<link rel="icon" type="image/png" href="favicon.png">
+<meta name="description" content="Cadence is a desktop app that validates, uploads and schedules TikTok videos at their original quality using TikTok's official API.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Anybody:wdth,wght@75..125,500..800&family=IBM+Plex+Sans:ital,wght@0,400;0,500;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: a broadcast-timeline motif — the hero is a day's posting timeline; legal pages are a
+   readable column with a sticky contents rail. Views are routed by #privacy / #terms. */
+:root {
+  --bg: #F3F4F7;
+  --surface: #FFFFFF;
+  --ink: #12131A;
+  --muted: #4E5466;
+  --line: #D6D9E2;
+  --accent: #2B3FD6;
+  --on-accent: #FFFFFF;
+  --signal: #9A5A00;
+  --ok: #18744A;
+  --bad: #B3202E;
+  --fill-bg: #FFF1D6;
+  --fill-ink: #6B3F00;
+  --display: "Anybody", "Arial Narrow", "Helvetica Neue", Arial, sans-serif;
+  --body: "IBM Plex Sans", "Segoe UI", system-ui, -apple-system, sans-serif;
+  --mono: "IBM Plex Mono", ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+  --measure: 66ch;
+  --gutter: max(16px, env(safe-area-inset-left, 0px));
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #0C0E15; --surface: #151824; --ink: #ECEEF5; --muted: #A4AABB; --line: #2C3142;
+    --accent: #8E9CFF; --on-accent: #0C0E15; --signal: #F2B45A; --ok: #5FD99A; --bad: #FF8F98;
+    --fill-bg: #3A2A0E; --fill-ink: #FFD48A; color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #0C0E15; --surface: #151824; --ink: #ECEEF5; --muted: #A4AABB; --line: #2C3142;
+  --accent: #8E9CFF; --on-accent: #0C0E15; --signal: #F2B45A; --ok: #5FD99A; --bad: #FF8F98;
+  --fill-bg: #3A2A0E; --fill-ink: #FFD48A; color-scheme: dark;
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+body { background: var(--bg); color: var(--ink); font: 400 16px/1.6 var(--body); }
+a { color: var(--accent); text-underline-offset: 3px; }
+a:focus-visible, button:focus-visible { outline: 3px solid var(--accent); outline-offset: 3px; border-radius: 4px; }
+h1, h2, h3 { font-family: var(--display); text-wrap: balance; line-height: 1.05; margin: 0; }
+p { margin: 0; }
+code, .mono { font-family: var(--mono); font-size: .9em; }
+.wrap { max-width: 1120px; margin: 0 auto; padding-left: var(--gutter); padding-right: max(16px, env(safe-area-inset-right, 0px)); }
+.fill { background: var(--fill-bg); color: var(--fill-ink); padding: 0 .3em; border-radius: 3px; font-weight: 500; }
+.eyebrow { font: 500 12px/1 var(--mono); letter-spacing: .12em; text-transform: uppercase; color: var(--muted); }
+
+/* header */
+body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-area-inset-top, 0px); z-index: 10; background: var(--bg); }
+.top { position: sticky; top: env(safe-area-inset-top, 0px); z-index: 5; background: var(--bg); border-bottom: 1px solid var(--line); }
+.top .wrap { display: flex; align-items: center; justify-content: space-between; gap: 16px; padding-block: 14px; flex-wrap: wrap; }
+.brand { display: flex; align-items: center; gap: 10px; font: 800 20px/1 var(--display); font-stretch: 115%; color: var(--ink); text-decoration: none; }
+.brand-mark { width: 26px; height: 26px; display: grid; grid-template-columns: repeat(3, 1fr); gap: 2px; align-items: end; }
+.brand-mark i { display: block; background: var(--accent); border-radius: 1px; }
+.brand-mark i:nth-child(1) { height: 40%; } .brand-mark i:nth-child(2) { height: 100%; } .brand-mark i:nth-child(3) { height: 65%; }
+nav { display: flex; gap: 4px; flex-wrap: wrap; }
+nav a { color: var(--muted); text-decoration: none; font-weight: 500; padding: 6px 12px; border-radius: 999px; }
+nav a:hover { color: var(--ink); }
+nav a[aria-current="page"] { color: var(--ink); background: var(--surface); box-shadow: inset 0 0 0 1px var(--line); }
+
+/* hero */
+.hero { padding-block: 64px 40px; display: grid; grid-template-columns: minmax(0, 1.05fr) minmax(0, 1fr); gap: 48px; align-items: center; }
+.hero h1 { font-size: clamp(44px, 7vw, 84px); font-weight: 800; font-stretch: 78%; letter-spacing: -.01em; text-transform: uppercase; }
+.hero h1 em { font-style: normal; color: var(--accent); font-stretch: 125%; }
+.lede { margin-top: 20px; font-size: 19px; color: var(--muted); max-width: 46ch; }
+.ctas { margin-top: 28px; display: flex; gap: 12px; flex-wrap: wrap; }
+.btn { display: inline-flex; align-items: center; gap: 8px; padding: 12px 20px; border-radius: 10px; font-weight: 600; text-decoration: none; border: 1px solid var(--line); color: var(--ink); background: var(--surface); }
+.btn.primary { background: var(--accent); border-color: var(--accent); color: var(--on-accent); }
+.specline { margin-top: 28px; display: flex; gap: 18px; flex-wrap: wrap; font: 500 13px/1 var(--mono); color: var(--muted); }
+.specline b { color: var(--ink); font-weight: 500; }
+
+/* timeline card */
+.deck { background: var(--surface); border: 1px solid var(--line); border-radius: 16px; padding: 20px; min-width: 0; }
+.deck-head { display: flex; justify-content: space-between; align-items: baseline; gap: 12px; flex-wrap: wrap; }
+.deck-head h3 { font-size: 18px; font-stretch: 100%; }
+.ruler { position: relative; margin: 18px 0 8px; height: 34px; border-bottom: 1px solid var(--line);
+  background: repeating-linear-gradient(90deg, var(--line) 0 1px, transparent 1px calc(100% / 24)); background-size: 100% 10px; background-repeat: no-repeat; background-position: bottom; }
+.ruler span { position: absolute; bottom: 14px; font: 500 11px/1 var(--mono); color: var(--muted); transform: translateX(-50%); }
+.ruler .now { position: absolute; top: 0; bottom: -6px; width: 2px; background: var(--signal); left: 37.5%; }
+.ruler .now::after { content: "NOW 09:00"; position: absolute; top: -2px; left: 6px; font: 500 10px/1 var(--mono); color: var(--signal); white-space: nowrap; }
+.slots { list-style: none; margin: 14px 0 0; padding: 0; display: grid; gap: 8px; }
+.slot { display: grid; grid-template-columns: 64px minmax(0, 1fr) auto; gap: 12px; align-items: center; padding: 10px 12px; border: 1px solid var(--line); border-radius: 10px; }
+.slot time { font: 500 13px/1 var(--mono); font-variant-numeric: tabular-nums; }
+.slot .t { min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.slot small { display: block; color: var(--muted); font: 400 12px/1.4 var(--mono); }
+.chip { font: 600 12px/1 var(--body); padding: 5px 10px; border-radius: 999px; border: 1px solid currentColor; white-space: nowrap; }
+.chip.ok { color: var(--ok); } .chip.run { color: var(--signal); } .chip.wait { color: var(--accent); } .chip.bad { color: var(--bad); }
+
+/* sections */
+section.band { padding-block: 64px; border-top: 1px solid var(--line); }
+.band h2 { font-size: clamp(30px, 4vw, 44px); font-weight: 750; font-stretch: 85%; text-transform: uppercase; }
+.band .intro { margin-top: 12px; color: var(--muted); max-width: var(--measure); font-size: 17px; }
+.grid3 { margin-top: 36px; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 28px; }
+.feat h3 { font-size: 22px; font-stretch: 100%; font-weight: 700; margin-top: 12px; }
+.feat p { margin-top: 8px; color: var(--muted); }
+.feat .k { font: 500 12px/1 var(--mono); color: var(--accent); letter-spacing: .08em; text-transform: uppercase; }
+
+.report { margin-top: 36px; display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 40px; align-items: start; }
+.report table { width: 100%; border-collapse: collapse; font-size: 15px; }
+.report th, .report td { text-align: left; padding: 10px 8px; border-bottom: 1px solid var(--line); vertical-align: top; }
+.report th { font: 500 12px/1 var(--mono); color: var(--muted); letter-spacing: .08em; text-transform: uppercase; }
+.report td.v { font-family: var(--mono); font-variant-numeric: tabular-nums; }
+.tbl { overflow-x: auto; background: var(--surface); border: 1px solid var(--line); border-radius: 14px; padding: 8px 12px; }
+.steps { display: grid; gap: 18px; }
+.steps p { color: var(--muted); }
+.steps strong { color: var(--ink); display: block; font-size: 17px; }
+
+.limits { margin-top: 32px; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; }
+.limit { background: var(--surface); border: 1px solid var(--line); border-radius: 14px; padding: 20px; }
+.limit h3 { font-size: 19px; font-stretch: 100%; font-weight: 700; }
+.limit p { margin-top: 8px; color: var(--muted); }
+
+pre.cmd { margin-top: 24px; background: var(--surface); border: 1px solid var(--line); border-radius: 12px; padding: 18px; overflow-x: auto; font: 400 14px/1.7 var(--mono); }
+pre.cmd .c { color: var(--muted); }
+
+footer { border-top: 1px solid var(--line); padding-block: 32px 48px; color: var(--muted); font-size: 14px; }
+footer .wrap { display: flex; justify-content: space-between; gap: 24px; flex-wrap: wrap; }
+footer p { max-width: 60ch; }
+footer nav a { padding: 0 12px 0 0; }
+
+/* legal */
+.legal { padding-block: 48px 72px; display: grid; grid-template-columns: 220px minmax(0, 1fr); gap: 56px; align-items: start; }
+.legal aside { position: sticky; top: calc(env(safe-area-inset-top, 0px) + 84px); }
+.legal aside ol { list-style: none; padding: 0; margin: 12px 0 0; display: grid; gap: 2px; counter-reset: toc; }
+.legal aside button { all: unset; cursor: pointer; display: block; padding: 5px 0; color: var(--muted); font-size: 14px; line-height: 1.35; }
+.legal aside button:hover { color: var(--ink); }
+.legal aside button:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+.doc { max-width: var(--measure); min-width: 0; }
+.doc h1 { font-size: clamp(36px, 5vw, 56px); font-weight: 800; font-stretch: 80%; text-transform: uppercase; }
+.doc .meta { margin-top: 14px; font: 400 13px/1.6 var(--mono); color: var(--muted); }
+.doc .summary { margin-top: 28px; padding: 20px 22px; background: var(--surface); border: 1px solid var(--line); border-radius: 14px; }
+.doc .summary h2 { font-size: 15px; font-family: var(--body); font-weight: 600; text-transform: none; margin: 0 0 8px; }
+.doc .summary ul { margin: 0; padding-left: 1.2em; }
+.doc h2 { font-size: 24px; font-weight: 700; font-stretch: 95%; margin-top: 44px; scroll-margin-top: 96px; }
+.doc h3 { font-size: 18px; font-family: var(--body); font-weight: 600; margin-top: 24px; }
+.doc p, .doc ul, .doc ol { margin-top: 12px; }
+.doc li { margin-top: 6px; }
+.doc .caps { text-transform: uppercase; font-size: 14px; letter-spacing: .01em; }
+.dtable { margin-top: 16px; overflow-x: auto; border: 1px solid var(--line); border-radius: 12px; }
+.dtable table { width: 100%; border-collapse: collapse; font-size: 14.5px; min-width: 560px; }
+.dtable th, .dtable td { text-align: left; padding: 10px 12px; border-bottom: 1px solid var(--line); vertical-align: top; }
+.dtable tr:last-child td { border-bottom: 0; }
+.dtable th { background: var(--surface); font-weight: 600; }
+
+@media (max-width: 880px) {
+  .hero, .report, .legal { grid-template-columns: minmax(0, 1fr); }
+  .grid3, .limits { grid-template-columns: minmax(0, 1fr); }
+  .legal aside { position: static; }
+  .hero { padding-block: 40px 24px; gap: 32px; }
+}
+@media (prefers-reduced-motion: no-preference) {
+  .ruler .now { animation: pulse 2.4s ease-in-out infinite; }
+  @keyframes pulse { 50% { opacity: .45; } }
+}
+</style>
+
+</head>
+<body>
+<header class="top">
+  <div class="wrap">
+    <a class="brand" href="index.html" aria-label="Cadence home"><span class="brand-mark" aria-hidden="true"><i></i><i></i><i></i></span>Cadence</a>
+    <nav aria-label="Site">
+      <a href="index.html" data-view="home" aria-current="page">Product</a>
+      <a href="privacy.html" data-view="privacy">Privacy</a>
+      <a href="terms.html" data-view="terms">Terms</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+<div id="view-home" data-page="home">
+  <div class="wrap hero">
+    <div>
+      <p class="eyebrow">Desktop uploader for TikTok creators</p>
+      <h1 style="margin-top:14px">Post at <em>60&nbsp;fps.</em><br>Right on time.</h1>
+      <p class="lede">Cadence checks every video against TikTok's requirements, sends your original file byte-for-byte, and publishes it at the time you choose.</p>
+      <div class="ctas">
+        <a class="btn primary" href="#get">Get Cadence</a>
+        <a class="btn" href="#how">How it works</a>
+      </div>
+      <div class="specline"><span><b>1920×1080</b> Full HD</span><span><b>60</b> fps</span><span><b>0</b> re-encodes by default</span><span><b>SHA-256</b> verified</span></div>
+    </div>
+
+    <div class="deck" aria-label="Example posting schedule">
+      <div class="deck-head"><h3>Today's queue</h3><span class="eyebrow">Tue 3 Nov · EST</span></div>
+      <div class="ruler" aria-hidden="true">
+        <span style="left:0%">00</span><span style="left:25%">06</span><span style="left:50%">12</span><span style="left:75%">18</span><span style="left:100%">24</span>
+        <i class="now"></i>
+      </div>
+      <ul class="slots">
+        <li class="slot"><time>07:30</time><div class="t">Morning routine, part 3<small>1080×1920 · 60 fps · H.264 · 412 MB</small></div><span class="chip ok">Published</span></li>
+        <li class="slot"><time>09:00</time><div class="t">Studio tour behind the scenes<small>1080×1920 · 60 fps · HEVC · 1.2 GB</small></div><span class="chip run">Uploading 64%</span></li>
+        <li class="slot"><time>12:15</time><div class="t">Recipe: 10-minute ramen<small>1080×1920 · 59.94 fps · H.264 · 288 MB</small></div><span class="chip wait">Pending</span></li>
+        <li class="slot"><time>18:45</time><div class="t">Q&amp;A draft for the TikTok inbox<small>1080×1920 · 30 fps · H.264 · 96 MB</small></div><span class="chip wait">Pending</span></li>
+      </ul>
+      <p class="eyebrow" style="margin-top:14px">Example data</p>
+    </div>
+  </div>
+
+  <section class="band" id="how">
+    <div class="wrap">
+      <p class="eyebrow">What it does</p>
+      <h2 style="margin-top:10px">Built for the upload, not the edit</h2>
+      <p class="intro">Finish your video in any editor. Cadence handles the part after export: checking it, sending it, and posting it when your audience is awake.</p>
+      <div class="grid3">
+        <div class="feat"><span class="k">Validate</span><h3>A report before anything leaves your computer</h3><p>Resolution, frame rate, codec, container, duration, file size, variable frame rate and HDR, each marked pass, warning or fail.</p></div>
+        <div class="feat"><span class="k">Schedule</span><h3>Pick a date and time</h3><p>A queue shows every post as pending, uploading, processing, published or failed. Edit, cancel or retry from one place.</p></div>
+        <div class="feat"><span class="k">Drafts</span><h3>Prepare now, post later</h3><p>Keep a library of ready-to-go videos, or send one to your TikTok inbox and finish it in TikTok's own editor.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="band" id="quality">
+    <div class="wrap">
+      <p class="eyebrow">Original quality</p>
+      <h2 style="margin-top:10px">Your master file, untouched</h2>
+      <div class="report">
+        <div class="tbl">
+          <table>
+            <thead><tr><th>Check</th><th>Value</th><th>Result</th></tr></thead>
+            <tbody>
+              <tr><td>Resolution</td><td class="v">1080×1920</td><td><span class="chip ok">Pass</span></td></tr>
+              <tr><td>Frame rate</td><td class="v">60 fps</td><td><span class="chip ok">Pass</span></td></tr>
+              <tr><td>Video codec</td><td class="v">H.264</td><td><span class="chip ok">Pass</span></td></tr>
+              <tr><td>Container</td><td class="v">MP4</td><td><span class="chip ok">Pass</span></td></tr>
+              <tr><td>Duration</td><td class="v">0:48</td><td><span class="chip ok">Pass</span></td></tr>
+              <tr><td>File size</td><td class="v">412.6 MB</td><td><span class="chip ok">Pass</span></td></tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="steps">
+          <p><strong>No re-encoding by default.</strong>When a file meets TikTok's limits, Cadence uploads the exact bytes you exported.</p>
+          <p><strong>Fingerprinted at approval.</strong>Cadence records the file's SHA-256 when you press Post or Schedule, and refuses to send it if the file changes afterwards.</p>
+          <p><strong>You decide on any conversion.</strong>If TikTok would reject a file, Cadence explains why and asks first. Container fixes are lossless; re-encoding is labelled as reducing quality.</p>
+          <p><strong>Plain about TikTok's side.</strong>TikTok processes every upload for playback. Cadence makes sure it starts from your best file.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="band" id="limits">
+    <div class="wrap">
+      <p class="eyebrow">Official API only</p>
+      <h2 style="margin-top:10px">What TikTok allows, stated plainly</h2>
+      <p class="intro">Cadence signs in through TikTok's Login Kit and posts through the Content Posting API. It never scrapes, automates a browser or uses private endpoints, so a few things work differently from the TikTok app.</p>
+      <div class="limits">
+        <div class="limit"><h3>Scheduling runs on your computer</h3><p>TikTok's API has no scheduling option, so Cadence sends each post at its time. Keep Cadence open or in the system tray.</p></div>
+        <div class="limit"><h3>In-app TikTok drafts aren't visible</h3><p>No app can read drafts saved inside TikTok. Use Cadence's draft library, or send videos to your TikTok inbox.</p></div>
+        <div class="limit"><h3>Daily limits apply</h3><p>TikTok caps how often an account can post through apps in a day. Cadence spaces requests and tells you when a cap is reached.</p></div>
+        <div class="limit"><h3>Your password stays with TikTok</h3><p>You sign in on TikTok's own page. Cadence keeps only the access token, in your operating system's keychain.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="band" id="get">
+    <div class="wrap">
+      <p class="eyebrow">Get started</p>
+      <h2 style="margin-top:10px">Runs on Windows, macOS and Linux</h2>
+      <p class="intro">Cadence needs Python 3.10 or newer and FFmpeg. Install, add your TikTok developer key, and run.</p>
+<pre class="cmd"><span class="c"># install</span>
+pip install -r requirements.txt
+<span class="c"># add TIKTOK_CLIENT_KEY to .env, then start</span>
+python -m cadence</pre>
+    </div>
+  </section>
+</div>
+
+</main>
+
+<footer>
+  <div class="wrap">
+    <p>Cadence is an independent app that uses TikTok's official developer APIs. It is not affiliated with, endorsed or sponsored by TikTok or ByteDance.<br>© 2026 <span class="fill">[Developer or company name]</span></p>
+    <nav aria-label="Legal"><a href="privacy.html">Privacy Policy</a><a href="terms.html">Terms of Service</a></nav>
+  </div>
+</footer>
+
+</body>
+</html>

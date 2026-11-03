@@ -1,0 +1,319 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Cadence Privacy Policy</title>
+<link rel="icon" type="image/png" href="favicon.png">
+<meta name="description" content="Cadence is a desktop app that validates, uploads and schedules TikTok videos at their original quality using TikTok's official API.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Anybody:wdth,wght@75..125,500..800&family=IBM+Plex+Sans:ital,wght@0,400;0,500;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: a broadcast-timeline motif — the hero is a day's posting timeline; legal pages are a
+   readable column with a sticky contents rail. Views are routed by #privacy / #terms. */
+:root {
+  --bg: #F3F4F7;
+  --surface: #FFFFFF;
+  --ink: #12131A;
+  --muted: #4E5466;
+  --line: #D6D9E2;
+  --accent: #2B3FD6;
+  --on-accent: #FFFFFF;
+  --signal: #9A5A00;
+  --ok: #18744A;
+  --bad: #B3202E;
+  --fill-bg: #FFF1D6;
+  --fill-ink: #6B3F00;
+  --display: "Anybody", "Arial Narrow", "Helvetica Neue", Arial, sans-serif;
+  --body: "IBM Plex Sans", "Segoe UI", system-ui, -apple-system, sans-serif;
+  --mono: "IBM Plex Mono", ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+  --measure: 66ch;
+  --gutter: max(16px, env(safe-area-inset-left, 0px));
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #0C0E15; --surface: #151824; --ink: #ECEEF5; --muted: #A4AABB; --line: #2C3142;
+    --accent: #8E9CFF; --on-accent: #0C0E15; --signal: #F2B45A; --ok: #5FD99A; --bad: #FF8F98;
+    --fill-bg: #3A2A0E; --fill-ink: #FFD48A; color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #0C0E15; --surface: #151824; --ink: #ECEEF5; --muted: #A4AABB; --line: #2C3142;
+  --accent: #8E9CFF; --on-accent: #0C0E15; --signal: #F2B45A; --ok: #5FD99A; --bad: #FF8F98;
+  --fill-bg: #3A2A0E; --fill-ink: #FFD48A; color-scheme: dark;
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+body { background: var(--bg); color: var(--ink); font: 400 16px/1.6 var(--body); }
+a { color: var(--accent); text-underline-offset: 3px; }
+a:focus-visible, button:focus-visible { outline: 3px solid var(--accent); outline-offset: 3px; border-radius: 4px; }
+h1, h2, h3 { font-family: var(--display); text-wrap: balance; line-height: 1.05; margin: 0; }
+p { margin: 0; }
+code, .mono { font-family: var(--mono); font-size: .9em; }
+.wrap { max-width: 1120px; margin: 0 auto; padding-left: var(--gutter); padding-right: max(16px, env(safe-area-inset-right, 0px)); }
+.fill { background: var(--fill-bg); color: var(--fill-ink); padding: 0 .3em; border-radius: 3px; font-weight: 500; }
+.eyebrow { font: 500 12px/1 var(--mono); letter-spacing: .12em; text-transform: uppercase; color: var(--muted); }
+
+/* header */
+body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-area-inset-top, 0px); z-index: 10; background: var(--bg); }
+.top { position: sticky; top: env(safe-area-inset-top, 0px); z-index: 5; background: var(--bg); border-bottom: 1px solid var(--line); }
+.top .wrap { display: flex; align-items: center; justify-content: space-between; gap: 16px; padding-block: 14px; flex-wrap: wrap; }
+.brand { display: flex; align-items: center; gap: 10px; font: 800 20px/1 var(--display); font-stretch: 115%; color: var(--ink); text-decoration: none; }
+.brand-mark { width: 26px; height: 26px; display: grid; grid-template-columns: repeat(3, 1fr); gap: 2px; align-items: end; }
+.brand-mark i { display: block; background: var(--accent); border-radius: 1px; }
+.brand-mark i:nth-child(1) { height: 40%; } .brand-mark i:nth-child(2) { height: 100%; } .brand-mark i:nth-child(3) { height: 65%; }
+nav { display: flex; gap: 4px; flex-wrap: wrap; }
+nav a { color: var(--muted); text-decoration: none; font-weight: 500; padding: 6px 12px; border-radius: 999px; }
+nav a:hover { color: var(--ink); }
+nav a[aria-current="page"] { color: var(--ink); background: var(--surface); box-shadow: inset 0 0 0 1px var(--line); }
+
+/* hero */
+.hero { padding-block: 64px 40px; display: grid; grid-template-columns: minmax(0, 1.05fr) minmax(0, 1fr); gap: 48px; align-items: center; }
+.hero h1 { font-size: clamp(44px, 7vw, 84px); font-weight: 800; font-stretch: 78%; letter-spacing: -.01em; text-transform: uppercase; }
+.hero h1 em { font-style: normal; color: var(--accent); font-stretch: 125%; }
+.lede { margin-top: 20px; font-size: 19px; color: var(--muted); max-width: 46ch; }
+.ctas { margin-top: 28px; display: flex; gap: 12px; flex-wrap: wrap; }
+.btn { display: inline-flex; align-items: center; gap: 8px; padding: 12px 20px; border-radius: 10px; font-weight: 600; text-decoration: none; border: 1px solid var(--line); color: var(--ink); background: var(--surface); }
+.btn.primary { background: var(--accent); border-color: var(--accent); color: var(--on-accent); }
+.specline { margin-top: 28px; display: flex; gap: 18px; flex-wrap: wrap; font: 500 13px/1 var(--mono); color: var(--muted); }
+.specline b { color: var(--ink); font-weight: 500; }
+
+/* timeline card */
+.deck { background: var(--surface); border: 1px solid var(--line); border-radius: 16px; padding: 20px; min-width: 0; }
+.deck-head { display: flex; justify-content: space-between; align-items: baseline; gap: 12px; flex-wrap: wrap; }
+.deck-head h3 { font-size: 18px; font-stretch: 100%; }
+.ruler { position: relative; margin: 18px 0 8px; height: 34px; border-bottom: 1px solid var(--line);
+  background: repeating-linear-gradient(90deg, var(--line) 0 1px, transparent 1px calc(100% / 24)); background-size: 100% 10px; background-repeat: no-repeat; background-position: bottom; }
+.ruler span { position: absolute; bottom: 14px; font: 500 11px/1 var(--mono); color: var(--muted); transform: translateX(-50%); }
+.ruler .now { position: absolute; top: 0; bottom: -6px; width: 2px; background: var(--signal); left: 37.5%; }
+.ruler .now::after { content: "NOW 09:00"; position: absolute; top: -2px; left: 6px; font: 500 10px/1 var(--mono); color: var(--signal); white-space: nowrap; }
+.slots { list-style: none; margin: 14px 0 0; padding: 0; display: grid; gap: 8px; }
+.slot { display: grid; grid-template-columns: 64px minmax(0, 1fr) auto; gap: 12px; align-items: center; padding: 10px 12px; border: 1px solid var(--line); border-radius: 10px; }
+.slot time { font: 500 13px/1 var(--mono); font-variant-numeric: tabular-nums; }
+.slot .t { min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.slot small { display: block; color: var(--muted); font: 400 12px/1.4 var(--mono); }
+.chip { font: 600 12px/1 var(--body); padding: 5px 10px; border-radius: 999px; border: 1px solid currentColor; white-space: nowrap; }
+.chip.ok { color: var(--ok); } .chip.run { color: var(--signal); } .chip.wait { color: var(--accent); } .chip.bad { color: var(--bad); }
+
+/* sections */
+section.band { padding-block: 64px; border-top: 1px solid var(--line); }
+.band h2 { font-size: clamp(30px, 4vw, 44px); font-weight: 750; font-stretch: 85%; text-transform: uppercase; }
+.band .intro { margin-top: 12px; color: var(--muted); max-width: var(--measure); font-size: 17px; }
+.grid3 { margin-top: 36px; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 28px; }
+.feat h3 { font-size: 22px; font-stretch: 100%; font-weight: 700; margin-top: 12px; }
+.feat p { margin-top: 8px; color: var(--muted); }
+.feat .k { font: 500 12px/1 var(--mono); color: var(--accent); letter-spacing: .08em; text-transform: uppercase; }
+
+.report { margin-top: 36px; display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 40px; align-items: start; }
+.report table { width: 100%; border-collapse: collapse; font-size: 15px; }
+.report th, .report td { text-align: left; padding: 10px 8px; border-bottom: 1px solid var(--line); vertical-align: top; }
+.report th { font: 500 12px/1 var(--mono); color: var(--muted); letter-spacing: .08em; text-transform: uppercase; }
+.report td.v { font-family: var(--mono); font-variant-numeric: tabular-nums; }
+.tbl { overflow-x: auto; background: var(--surface); border: 1px solid var(--line); border-radius: 14px; padding: 8px 12px; }
+.steps { display: grid; gap: 18px; }
+.steps p { color: var(--muted); }
+.steps strong { color: var(--ink); display: block; font-size: 17px; }
+
+.limits { margin-top: 32px; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; }
+.limit { background: var(--surface); border: 1px solid var(--line); border-radius: 14px; padding: 20px; }
+.limit h3 { font-size: 19px; font-stretch: 100%; font-weight: 700; }
+.limit p { margin-top: 8px; color: var(--muted); }
+
+pre.cmd { margin-top: 24px; background: var(--surface); border: 1px solid var(--line); border-radius: 12px; padding: 18px; overflow-x: auto; font: 400 14px/1.7 var(--mono); }
+pre.cmd .c { color: var(--muted); }
+
+footer { border-top: 1px solid var(--line); padding-block: 32px 48px; color: var(--muted); font-size: 14px; }
+footer .wrap { display: flex; justify-content: space-between; gap: 24px; flex-wrap: wrap; }
+footer p { max-width: 60ch; }
+footer nav a { padding: 0 12px 0 0; }
+
+/* legal */
+.legal { padding-block: 48px 72px; display: grid; grid-template-columns: 220px minmax(0, 1fr); gap: 56px; align-items: start; }
+.legal aside { position: sticky; top: calc(env(safe-area-inset-top, 0px) + 84px); }
+.legal aside ol { list-style: none; padding: 0; margin: 12px 0 0; display: grid; gap: 2px; counter-reset: toc; }
+.legal aside button { all: unset; cursor: pointer; display: block; padding: 5px 0; color: var(--muted); font-size: 14px; line-height: 1.35; }
+.legal aside button:hover { color: var(--ink); }
+.legal aside button:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+.doc { max-width: var(--measure); min-width: 0; }
+.doc h1 { font-size: clamp(36px, 5vw, 56px); font-weight: 800; font-stretch: 80%; text-transform: uppercase; }
+.doc .meta { margin-top: 14px; font: 400 13px/1.6 var(--mono); color: var(--muted); }
+.doc .summary { margin-top: 28px; padding: 20px 22px; background: var(--surface); border: 1px solid var(--line); border-radius: 14px; }
+.doc .summary h2 { font-size: 15px; font-family: var(--body); font-weight: 600; text-transform: none; margin: 0 0 8px; }
+.doc .summary ul { margin: 0; padding-left: 1.2em; }
+.doc h2 { font-size: 24px; font-weight: 700; font-stretch: 95%; margin-top: 44px; scroll-margin-top: 96px; }
+.doc h3 { font-size: 18px; font-family: var(--body); font-weight: 600; margin-top: 24px; }
+.doc p, .doc ul, .doc ol { margin-top: 12px; }
+.doc li { margin-top: 6px; }
+.doc .caps { text-transform: uppercase; font-size: 14px; letter-spacing: .01em; }
+.dtable { margin-top: 16px; overflow-x: auto; border: 1px solid var(--line); border-radius: 12px; }
+.dtable table { width: 100%; border-collapse: collapse; font-size: 14.5px; min-width: 560px; }
+.dtable th, .dtable td { text-align: left; padding: 10px 12px; border-bottom: 1px solid var(--line); vertical-align: top; }
+.dtable tr:last-child td { border-bottom: 0; }
+.dtable th { background: var(--surface); font-weight: 600; }
+
+@media (max-width: 880px) {
+  .hero, .report, .legal { grid-template-columns: minmax(0, 1fr); }
+  .grid3, .limits { grid-template-columns: minmax(0, 1fr); }
+  .legal aside { position: static; }
+  .hero { padding-block: 40px 24px; gap: 32px; }
+}
+@media (prefers-reduced-motion: no-preference) {
+  .ruler .now { animation: pulse 2.4s ease-in-out infinite; }
+  @keyframes pulse { 50% { opacity: .45; } }
+}
+</style>
+
+</head>
+<body>
+<header class="top">
+  <div class="wrap">
+    <a class="brand" href="index.html" aria-label="Cadence home"><span class="brand-mark" aria-hidden="true"><i></i><i></i><i></i></span>Cadence</a>
+    <nav aria-label="Site">
+      <a href="index.html" data-view="home">Product</a>
+      <a href="privacy.html" data-view="privacy" aria-current="page">Privacy</a>
+      <a href="terms.html" data-view="terms">Terms</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+<div id="view-privacy" data-page="privacy">
+  <div class="wrap legal">
+    <aside aria-label="Contents"><p class="eyebrow">Contents</p><ol data-toc="privacy"></ol></aside>
+    <article class="doc" id="privacy-doc">
+      <p class="eyebrow">Legal</p>
+      <h1 style="margin-top:12px">Privacy Policy</h1>
+      <p class="meta">Effective November 3, 2026 · Last updated November 3, 2026</p>
+
+      <div class="summary">
+        <h2>The short version</h2>
+        <ul>
+          <li>Cadence runs on your computer. Your videos, captions and schedule stay there.</li>
+          <li>Cadence sends data to TikTok only when you post, and only through TikTok's official API.</li>
+          <li>We don't run analytics, show ads, or sell or share your information.</li>
+          <li>Sign out or uninstall to remove what Cadence stores.</li>
+        </ul>
+      </div>
+
+      <h2 id="p-who">Who we are</h2>
+      <p>Cadence ("Cadence", "we", "us") is a desktop application published by <span class="fill">[Developer or company name]</span>. This policy explains what information Cadence handles when you use it to upload and schedule videos to TikTok, and the choices you have.</p>
+      <p>Cadence is an independent product. It is not made, endorsed or sponsored by TikTok or ByteDance.</p>
+
+      <h2 id="p-collect">Information Cadence handles</h2>
+      <h3>Information you provide</h3>
+      <ul>
+        <li><b>Video files</b> you choose to validate, upload or save as drafts.</li>
+        <li><b>Post details</b>: captions, hashtags and mentions, visibility setting, comment, Duet and Stitch settings, content disclosure choices, AI-generated content label, cover frame and scheduled time.</li>
+        <li><b>Draft notes</b> you add in Cadence's draft library.</li>
+      </ul>
+      <h3>Information from TikTok, with your permission</h3>
+      <p>When you sign in with TikTok you choose which permissions to grant. Cadence requests these:</p>
+      <div class="dtable"><table>
+        <thead><tr><th>Permission</th><th>What Cadence receives or does</th></tr></thead>
+        <tbody>
+          <tr><td><code>user.info.basic</code></td><td>Your TikTok open ID, display name and profile picture link, to show which account is signed in.</td></tr>
+          <tr><td><code>video.publish</code></td><td>Your account's posting options (username, nickname, allowed visibility settings, interaction settings, longest allowed video), and the ability to post videos you approve.</td></tr>
+          <tr><td><code>video.upload</code></td><td>The ability to send videos you choose to your TikTok inbox as drafts.</td></tr>
+        </tbody>
+      </table></div>
+      <p>Cadence also receives an access token, a refresh token and the processing status of each post (for example "processing" or "published").</p>
+      <h3>Information Cadence creates</h3>
+      <ul>
+        <li><b>Technical details of your videos</b> read with FFmpeg (resolution, frame rate, codecs, duration, size) and a SHA-256 fingerprint used to confirm the file hasn't changed before upload.</li>
+        <li><b>Your queue</b>: file locations, post status, TikTok publish IDs, error messages and retry counts.</li>
+        <li><b>App settings</b> such as your theme and scheduling preferences.</li>
+      </ul>
+      <p>Cadence does not collect your TikTok password, contacts, location, device identifiers, payment information, or usage analytics.</p>
+
+      <h2 id="p-use">How Cadence uses information</h2>
+      <ul>
+        <li>To check your videos against TikTok's technical requirements.</li>
+        <li>To upload videos and post details to TikTok when you press Post, or at the time you scheduled.</li>
+        <li>To show your account, posting options and the status of each post.</li>
+        <li>To keep you signed in by renewing your access token.</li>
+      </ul>
+      <p>Cadence does not use your information for advertising, profiling or training machine-learning models.</p>
+
+      <h2 id="p-store">Where information is stored</h2>
+      <p>Cadence stores information on your computer only:</p>
+      <div class="dtable"><table>
+        <thead><tr><th>What</th><th>Where</th></tr></thead>
+        <tbody>
+          <tr><td>TikTok sign-in tokens</td><td>Your operating system's secure credential store (macOS Keychain, Windows Credential Manager, or Secret Service on Linux). If none is available, a file readable only by your user account in the Cadence data folder.</td></tr>
+          <tr><td>Queue, drafts and post details</td><td>A local database file in the Cadence data folder.</td></tr>
+          <tr><td>Settings</td><td>Your operating system's standard settings store.</td></tr>
+          <tr><td>Video files</td><td>Where you keep them. Cadence reads them and does not copy them, except when you choose a conversion, which writes a new file next to the original.</td></tr>
+        </tbody>
+      </table></div>
+      <p>Cadence data folder: <code>%APPDATA%\Cadence</code> on Windows, <code>~/Library/Application Support/Cadence</code> on macOS, and <code>~/.local/share/Cadence</code> on Linux.</p>
+
+      <h2 id="p-share">When information is shared</h2>
+      <p><b>With TikTok.</b> When you post or send to your inbox, Cadence transmits the video file and post details directly to TikTok's servers over HTTPS. TikTok's handling of that content is governed by <a href="https://www.tiktok.com/legal/page/us/privacy-policy/en" rel="noopener">TikTok's Privacy Policy</a> and <a href="https://www.tiktok.com/legal/page/us/terms-of-service/en" rel="noopener">Terms of Service</a>.</p>
+      <p><b>With our sign-in service, if your version uses one.</b> Some versions of Cadence complete TikTok sign-in through a small token service operated by <span class="fill">[Developer or company name]</span>, so the app's secret key is not stored on your computer. That service receives the one-time authorization code or your refresh token, passes it to TikTok, and returns the result to Cadence. It does not store tokens, and its logs do not record request contents.</p>
+      <p><b>When required by law.</b> Because Cadence keeps your information on your computer, we generally have nothing to disclose. If we ever hold information about you, we may disclose it if required by law or to protect against fraud or abuse.</p>
+      <p>We do not sell or rent personal information, and we do not share it for cross-context behavioral advertising.</p>
+
+      <h2 id="p-retain">How long information is kept</h2>
+      <ul>
+        <li><b>Tokens</b> are kept until you sign out. Signing out asks TikTok to revoke them and deletes them from your computer.</li>
+        <li><b>Queue entries and drafts</b> are kept until you remove them in Cadence or delete the Cadence data folder.</li>
+        <li><b>Converted files</b> stay on your computer until you delete them.</li>
+      </ul>
+
+      <h2 id="p-choices">Your choices and rights</h2>
+      <ul>
+        <li><b>Revoke access</b> by signing out in Cadence, or by removing Cadence from the apps connected to your TikTok account in TikTok's settings.</li>
+        <li><b>Delete your data</b> by removing items in Cadence, signing out, and deleting the Cadence data folder listed above.</li>
+        <li><b>Decline permissions</b> on TikTok's sign-in screen. Cadence will explain which features need them.</li>
+      </ul>
+      <p>Depending on where you live (for example under the GDPR in the EU and UK, or state privacy laws in the United States such as the CCPA), you may have rights to access, correct, delete or port your personal information, and to object to or restrict its processing. Most of this information is already under your control on your device. For anything we hold, contact us using the details below and we will respond within the time the law requires. You may also complain to your local data protection authority.</p>
+      <p>Where the GDPR applies, we process information to provide the service you ask for (performance of a contract) and, for the optional sign-in service, our legitimate interest in keeping app credentials secure.</p>
+
+      <h2 id="p-security">Security</h2>
+      <p>Cadence signs in using TikTok's OAuth flow with PKCE and a check against cross-site request forgery, uses HTTPS for every request to TikTok, stores tokens in your operating system's credential store, and verifies each file's fingerprint before upload. No method of storage or transmission is perfectly secure, so keep your computer and operating system account protected.</p>
+
+      <h2 id="p-children">Children</h2>
+      <p>Cadence is not directed to children under 13, and you must meet TikTok's minimum age requirements to use TikTok. We do not knowingly collect information from children. If you believe a child has used Cadence, contact us.</p>
+
+      <h2 id="p-changes">Changes to this policy</h2>
+      <p>We will update this page when Cadence's handling of information changes, and revise the date at the top. If a change is significant, we will also tell you in the app before it takes effect.</p>
+
+      <h2 id="p-contact">Contact</h2>
+      <p><span class="fill">[Developer or company name]</span><br><span class="fill">[Postal address]</span><br>Email: <span class="fill">[privacy contact email]</span></p>
+    </article>
+  </div>
+</div>
+
+</main>
+
+<footer>
+  <div class="wrap">
+    <p>Cadence is an independent app that uses TikTok's official developer APIs. It is not affiliated with, endorsed or sponsored by TikTok or ByteDance.<br>© 2026 <span class="fill">[Developer or company name]</span></p>
+    <nav aria-label="Legal"><a href="privacy.html">Privacy Policy</a><a href="terms.html">Terms of Service</a></nav>
+  </div>
+</footer>
+
+<script>
+(function () {
+  var views = ["home", "privacy", "terms"];
+  var anchors = { how: 1, quality: 1, limits: 1, get: 1 };
+
+  // Build the contents rail for each legal document from its headings.
+  document.querySelectorAll("[data-toc]").forEach(function (ol) {
+    var doc = document.getElementById(ol.dataset.toc + "-doc");
+    doc.querySelectorAll("h2[id]").forEach(function (h) {
+      var li = document.createElement("li");
+      var b = document.createElement("button");
+      b.type = "button";
+      b.textContent = h.textContent;
+      b.addEventListener("click", function () { h.scrollIntoView({ behavior: matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth" }); });
+      li.appendChild(b);
+      ol.appendChild(li);
+    });
+  });
+
+})();
+</script>
+</body>
+</html>
